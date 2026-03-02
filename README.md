@@ -1,32 +1,95 @@
-# Mini Calculadora ABAP OO
+#  Mini Calculadora ABAP OO
 
-## Descrição
-Este projeto contém um **report ABAP OO** chamado `ZR_CALCULATOR` que implementa uma mini calculadora com operações básicas: soma, subtração, multiplicação e divisão.  
-O report utiliza uma **classe ABAP OO (`ZCL_MATH_CALCULATOR`)** para realizar os cálculos, com tratamento de exceções (como divisão por zero ou operação inválida) e mensagens personalizadas definidas via SE91.  
-Os resultados das operações são armazenados na tabela `ZTCALC_LOG` para registro de histórico.
+##  Descrição
 
-## Funcionalidades
-- Soma, subtração, multiplicação e divisão de dois valores.
-- Tratamento de erros aritméticos (divisão por zero e operação inválida).
-- Mensagens de sucesso ou erro com números de mensagem configuráveis via SE91.
-- Registro de cálculos na tabela `ZTCALC_LOG` após operações bem-sucedidas.
+Este projeto implementa uma **mini calculadora em ABAP Orientado a Objetos**, utilizando boas práticas de encapsulamento, tratamento de exceções e registro de logs em tabela customizada.
 
-## Parâmetros do report
-- `P_VALUE1` – Primeiro valor.
-- `P_OP` – Operação (`+`, `-`, `*`, `/`).
-- `P_VALUE2` – Segundo valor.
+O report `ZR_CALCULATOR` permite executar operações matemáticas básicas entre dois valores e registra apenas operações bem-sucedidas na tabela de log.
 
-## Demonstração
+---
 
-### 1. Tela do report antes de rodar
-![Report](images/Prog1.png)
+##  Funcionalidades
 
-### 2. Resultado após executar o cálculo
-![Resultado](images/Result.png)
+- ✔️ Soma  
+- ✔️ Subtração  
+- ✔️ Multiplicação  
+- ✔️ Divisão  
+- ✔️ Tratamento de divisão por zero  
+- ✔️ Tratamento de operação inválida  
+- ✔️ Mensagens customizadas via SE91  
+- ✔️ Registro automático em tabela `ZTCALC_LOG`  
 
-### 3. Tabela `ZTCALC_LOG` mostrando os cálculos registrados
-![Tabela de Log](images/Table_data.png)
+---
 
-## Observações
-- Os IDs dos registros na tabela `ZTCALC_LOG` são gerados automaticamente usando `SELECT MAX(ID)` para garantir unicidade.
-- Exceções são tratadas e exibidas como mensagens de erro sem quebrar a execução do report.
+##  Arquitetura
+
+###  Classe `ZCL_MATH_CALCULATOR`
+Responsável por:
+- Executar as operações matemáticas
+- Centralizar a lógica de cálculo
+- Tratar exceções
+- Retornar mensagens de sucesso
+
+###  Report `ZR_CALCULATOR`
+Responsável por:
+- Receber parâmetros do usuário
+- Chamar a classe de cálculo
+- Exibir mensagens
+- Registrar logs em tabela
+
+---
+
+##  Demonstração
+
+### 1️ Tela inicial do report
+
+<img width="1910" height="1071" alt="Tela do Report" src="https://github.com/user-attachments/assets/5da14578-9c45-43bd-98eb-d8ebb96581c4" />
+
+---
+
+### 2️ Resultado após execução com mensagem de sucesso
+
+<img width="1911" height="1072" alt="Resultado" src="https://github.com/user-attachments/assets/4a50d35a-ada6-4d4e-8708-5e4b676e2290" />
+
+---
+
+### 3️ Tabela `ZTCALC_LOG` (SE16N) com registros gravados
+
+<img width="1915" height="1075" alt="Tabela Log" src="https://github.com/user-attachments/assets/6ddff8a9-3979-4271-a1a8-5fa38c465069" />
+
+---
+
+##  Tratamento de Exceções
+
+O sistema trata:
+
+- `CX_SY_ZERODIVIDE` → divisão por zero  
+- `CX_SY_NO_HANDLER` → operação inválida  
+
+Em ambos os casos:
+- Exibe mensagem de erro (005)
+- Não grava registro na tabela
+
+---
+
+##  Controle de Logs
+
+- Apenas operações bem-sucedidas são registradas
+- ID gerado via `SELECT MAX(ID) + 1`
+- Registro contém:
+  - Valor 1
+  - Operação
+  - Valor 2
+  - Resultado
+  - Data e hora
+
+---
+
+##  Objetivo do Projeto
+
+Projeto desenvolvido para prática de:
+
+- ABAP OO  
+- Tratamento de exceções  
+- Boas práticas de organização de código  
+- Estruturação de projetos para portfólio GitHub  
