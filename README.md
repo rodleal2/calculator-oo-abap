@@ -1,4 +1,3 @@
-
 # Mini Calculadora ABAP OO
 
 ## Descrição
